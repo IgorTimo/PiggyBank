@@ -1,20 +1,24 @@
 import Layout from "../components/Layout";
-import PiggyBank from "../contracts/PiggyBank";
+import OwnerPiggyBanks from "../components/OwnerPiggyBanks";
+import PiggyBankView from "../components/PiggyBankView";
+import getPiggyBankInfo from "../utils/getPiggyBankInfo";
 
 
 const PiggyBanksPage = (props) => {
   console.log("props: ", props);
+
+  if(props.arrayOfAddresses){
+    return <OwnerPiggyBanks arrayOfAddresses={props.arrayOfAddresses}/>
+  }
+
+
+
   return (
     <Layout>
       <div>
         {props.address && <h1>{props.address} is not correct!</h1>}
         {props.owner ? (
-          <div>
-            <h1>{props.owner} is owner!</h1>
-            <h1>{props.isOver.toString()} is current state!</h1>
-            <h1>{props.desc} is desc!</h1>
-            <h1>{props.endTime} is end time!</h1>
-          </div>
+          <PiggyBankView {...props}/>
         ) : <form>Some form</form>}
       </div>
     </Layout>
@@ -25,20 +29,22 @@ export default PiggyBanksPage;
 
 export async function getServerSideProps(props) {
     const address = props.query.address;
+    const user = props.query.user;
     if (address) {
-      const piggyBank = PiggyBank(address);
+
       try {
-        const owner = await piggyBank.owner();
-        const isOver = await piggyBank.isOver();
-        const desc = await piggyBank.desc();
-        const endTime = (await piggyBank.endTime()).toNumber();
-        return { props: { owner, isOver, desc, endTime } };
+        const response  = await getPiggyBankInfo(address);
+        return { props:  response};
       } catch (error) {
         console.error(error);
         return {
           props: { address },
         };
       }
+    }
+
+    if(user){
+      return {props: {arrayOfAddresses: ["0x46F171D9F3F109b829606F11C7bB6c6E42245201", "0xDf7fe403Eb133Eb940cCfCaCCd52Ae663E0FAcF7"]}}
     }
   
     return {
