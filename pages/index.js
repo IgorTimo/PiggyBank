@@ -1,27 +1,16 @@
 import Link from "next/link";
+import FindPiggyBankForm from "../components/FindPiggyBankForm";
+import FindUsersPiggyBanksForm from "../components/FindUsersPiggyBanksForm";
 import Layout from "../components/Layout";
 const Index = () => {
   return (
     <Layout>
-      <Link
-        href={{
-          pathname: "/piggy_banks",
-          query: { address: "0x46F171D9F3F109b829606F11C7bB6c6E42245201" },
-        }}
-      >
-        <a>
-          Piggy bank with address 0x46F171D9F3F109b829606F11C7bB6c6E42245201
-        </a>
-      </Link>
-      <br/>
-      <Link
-        href={{
-          pathname: "/piggy_banks",
-          query: { user: "some_user" },
-        }}
-      >
-        <a>
-          Piggy banks of user
+
+      <FindPiggyBankForm />
+      <FindUsersPiggyBanksForm />
+      <Link href="/piggy_banks/new">
+      <a className="text-2xl text-blue-500 hover:text-blue-700">
+        Or create your own piggy bank!
         </a>
       </Link>
     </Layout>

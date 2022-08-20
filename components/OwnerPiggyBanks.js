@@ -18,7 +18,7 @@ const OwnerPiggyBanks = ({ arrayOfAddresses }) => {
           piggyBanks.push(response);
         }
         console.log("PiggyBanks: ", piggyBanks);
-        setPiggyBanks(piggyBanks);
+        setPiggyBanks(piggyBanks.reverse());
       } catch (error) {
         console.error(error);
       }
