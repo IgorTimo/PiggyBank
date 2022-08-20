@@ -1,6 +1,5 @@
 import {ethers} from 'ethers';
-import provider from './provider';    
-
+import defaultProvider from '../defaultProvider';
 
 const abi = [
   {
@@ -63,7 +62,7 @@ const abi = [
   }
 ];
 
-const PiggyBank = (address) => new ethers.Contract(address, abi, provider);
+const PiggyBank = (address) => new ethers.Contract(address, abi, defaultProvider);
 
 export default PiggyBank;
 

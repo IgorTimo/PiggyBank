@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import provider from "../contracts/provider";
+import provider from "../contracts/metamaskProvider";
 
 const Header = () => {
   const [currentAccount, setCurrentAccount] = useState();

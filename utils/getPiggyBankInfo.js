@@ -1,4 +1,5 @@
-import PiggyBank from "../contracts/PiggyBank";
+import PiggyBank from "../contracts/prggy_bank/PiggyBank";
+
 
 const getPiggyBankInfo = async (address) => {
   const piggyBank = PiggyBank(address);

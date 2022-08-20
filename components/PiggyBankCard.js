@@ -1,6 +1,26 @@
+import { ethers } from "ethers";
 import Link from "next/link";
+import { useRef, useState } from "react";
+import PiggyBankWithSigner from "../contracts/prggy_bank/PiggyBankWithSigner";
 
 const PiggyBankCard = (props) => {
+  const [isInputVisible, setInputVisible] = useState(false);
+  const ammountRef = useRef();
+  const handleDepositClick = async () => {
+    const piggyBankWithSigner = PiggyBankWithSigner(props.address);
+
+    try {
+      const ammount = ethers.utils.parseEther(ammountRef.current.value);
+      console.log("ammount: " + ammount)
+      const tx = await piggyBankWithSigner.deposit( {value: ammount});
+      console.log("tx: ", tx);
+      const response = await tx.wait();
+      console.log("response: ", response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="m-6 rounded border border-pink-500 p-4">
       <h1 className="text-2xl">Owner: {props.owner}</h1>
@@ -17,6 +37,16 @@ const PiggyBankCard = (props) => {
           Get withdraw
         </button>
       )}
+      {isInputVisible && <input ref={ammountRef} type="text" placeholder="how many ether?" className="border rounded ml-4 border-orange-300 py-1 px-4 "/>}
+      <button
+        onClick={isInputVisible ? handleDepositClick : () => setInputVisible(true)}
+        disabled={props.isOver}
+        className={`my-2 ml-2 rounded border border-orange-300 py-1 px-4  ${
+          !props.isOver && "hover:bg-orange-300"
+        }`}
+      >
+        Deposit
+      </button>
       <h6>{props.desc}</h6>
       <Link
         href={{
@@ -24,7 +54,7 @@ const PiggyBankCard = (props) => {
           query: { address: props.address },
         }}
       >
-        <a className="text-blue-400 hover:underline">See details</a>
+        <a className="text-blue-400 hover:underline">See details or make deposit</a>
       </Link>
     </div>
   );
