@@ -5,14 +5,14 @@ import PiggyBankWithSigner from "../contracts/prggy_bank/PiggyBankWithSigner";
 
 const PiggyBankCard = (props) => {
   const [isInputVisible, setInputVisible] = useState(false);
-  const ammountRef = useRef();
+  const amountRef = useRef();
   const handleDepositClick = async () => {
     const piggyBankWithSigner = PiggyBankWithSigner(props.address);
 
     try {
-      const ammount = ethers.utils.parseEther(ammountRef.current.value);
-      console.log("ammount: " + ammount)
-      const tx = await piggyBankWithSigner.deposit( {value: ammount});
+      const amount = ethers.utils.parseEther(amountRef.current.value);
+      console.log("amount: " + amount)
+      const tx = await piggyBankWithSigner.deposit( {value: amount});
       console.log("tx: ", tx);
       const response = await tx.wait();
       console.log("response: ", response);
@@ -37,7 +37,7 @@ const PiggyBankCard = (props) => {
           Get withdraw
         </button>
       )}
-      {isInputVisible && <input ref={ammountRef} type="text" placeholder="how many ether?" className="border rounded ml-4 border-orange-300 py-1 px-4 "/>}
+      {isInputVisible && <input ref={amountRef} type="text" placeholder="how many ether?" className="border rounded ml-4 border-orange-300 py-1 px-4 "/>}
       <button
         onClick={isInputVisible ? handleDepositClick : () => setInputVisible(true)}
         disabled={props.isOver}

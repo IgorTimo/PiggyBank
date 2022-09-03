@@ -8,9 +8,9 @@ const abi = [
     inputs: [
       { internalType: "address", name: "_owner", type: "address" },
       { internalType: "string", name: "_desc", type: "string" },
-      { internalType: "uint256", name: "_targetAmmount", type: "uint256" },
+      { internalType: "uint256", name: "_targetAmount", type: "uint256" },
     ],
-    name: "createAmmountPiggyBank",
+    name: "createAmountPiggyBank",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "nonpayable",
     type: "function",

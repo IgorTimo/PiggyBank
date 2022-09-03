@@ -5,7 +5,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "./AmmountPiggyBank.sol";
+import "./AmountPiggyBank.sol";
 import "./TimePiggyBank.sol";
 
 contract PiggyBankFactory {
@@ -22,14 +22,14 @@ contract PiggyBankFactory {
     }
 
 
-    function createAmmountPiggyBank(
+    function createAmountPiggyBank(
         address _owner,
         string memory _desc,
-        uint256 _targetAmmount
+        uint256 _targetAmount
     ) public returns (address) {
-        address newAmmountPiggyBank = address(new AmmountPiggyBank(_owner, _desc, _targetAmmount));
-        addressToPiggyBanks[_owner].push(newAmmountPiggyBank);
-        return newAmmountPiggyBank;
+        address newAmountPiggyBank = address(new AmountPiggyBank(_owner, _desc, _targetAmount));
+        addressToPiggyBanks[_owner].push(newAmountPiggyBank);
+        return newAmountPiggyBank;
     }
 
     function getPiggyBanksByAddress(address _address) public view returns (address[] memory) {

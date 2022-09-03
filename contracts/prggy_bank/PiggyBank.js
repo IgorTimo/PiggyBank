@@ -6,7 +6,7 @@ const abi = [
     inputs: [
       { internalType: "address", name: "_owner", type: "address" },
       { internalType: "string", name: "_desc", type: "string" },
-      { internalType: "uint256", name: "_targetAmmount", type: "uint256" }
+      { internalType: "uint256", name: "_targetAmount", type: "uint256" }
     ],
     stateMutability: "nonpayable",
     type: "constructor"
@@ -48,7 +48,7 @@ const abi = [
   },
   {
     inputs: [],
-    name: "targetAmmount",
+    name: "targetAmount",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function"
