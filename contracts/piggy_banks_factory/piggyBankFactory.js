@@ -33,6 +33,13 @@ const abi = [
     stateMutability: "view",
     type: "function",
   },
+  {
+    inputs: [{ internalType: "address", name: "_address", type: "address" }],
+    name: "registerPiggyBank",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  }
 ];
 
 const piggyBankFactory = new ethers.Contract(address, abi, defaultProvider);
