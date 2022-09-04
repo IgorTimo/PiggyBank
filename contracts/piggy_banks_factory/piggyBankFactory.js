@@ -40,7 +40,7 @@ const abi = [
     name: "registerPiggyBank",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   }
 ];
 
