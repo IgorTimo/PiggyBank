@@ -4,6 +4,7 @@ import defaultProvider from "../defaultProvider";
 // https://rinkeby.etherscan.io/address/0x5bb032badc743acfee0dc709ecf4e592ae06b36e#code
 const address = "0x5bb032baDC743ACFee0Dc709Ecf4E592ae06B36e";
 
+// TODO:  Consider getting abi from /artifacts/contracts/{contract}.sol/{contract}.json.
 const abi = [
   {
     inputs: [
