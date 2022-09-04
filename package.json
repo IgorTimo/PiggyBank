@@ -16,7 +16,9 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
     "autoprefixer": "^10.4.7",
+    "hardhat": "^2.11.0",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
