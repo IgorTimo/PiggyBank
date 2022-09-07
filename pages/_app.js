@@ -1,17 +1,16 @@
-import "../styles/globals.css";
 import Head from "next/head";
-import { Provider } from "../components/Context";
+import { AppContextProvider } from "../contexts/AppContext";
+
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Provider>
+      <AppContextProvider>
         <Head>
           <link rel="shortcut icon" href="favicon-32x32.png" />
         </Head>
         <Component {...pageProps} />
-      </Provider>
-    </>
+      </AppContextProvider>
   );
 }
 

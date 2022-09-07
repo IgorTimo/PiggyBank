@@ -1,39 +1,33 @@
 import Link from "next/link";
-import { useState, useContext, useRef } from "react";
-// import provider from "../contracts/metamaskProvider";
+import { useState } from "react";
 import { Modal } from "./Modal";
-import { Context } from "./Context";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-// import PiggyBanksPage from "../pages/piggy_banks";
 import { useRouter } from "next/router";
+import { useAppContext } from "../hooks/useAppContext";
+
+import connectMetamask from "../utils/connectMetamask";
+import disconnectMetamask from "../utils/disconnectMetamask";
 
 const Header = () => {
-  // const [currentAccount, setCurrentAccount] = useState();
-  const { currentAccount, setCurrentAccount, handleConnectMetamaskClick } =
-    useContext(Context);
-  // useEffect(() => {
-  //   sessionStorage.getItem("currentAccount") &&
-  //     setCurrentAccount(sessionStorage.getItem("currentAccount"));
-  // }, []);
-
-  // const handleConnectMetamaskClick = async () => {
-  //   try {
-  //     const accounts = await provider.send("eth_requestAccounts", []);
-  //     sessionStorage.setItem("currentAccount", accounts[0]);
-  //     setCurrentAccount(accounts[0]);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
+  const { contextState, updateContextState } = useAppContext();
+  const currentAccount = contextState?.currentAccount;
   const [modalShown, toggleModal] = useState(false);
+
+  const handleConnectMetamaskClick = async () => {
+    connectMetamask(updateContextState)
+  };
+
+  const handleDisconnectMetamaskClick = async () => {
+    disconnectMetamask(updateContextState)
+  };
+
+
 
   const handleToggleClick = () => {
     toggleModal(!modalShown);
   };
 
   const router = useRouter();
-  // const userRef = useRef();
 
   const handleFindAddressSubmit = (event) => {
     event.preventDefault();
@@ -55,11 +49,10 @@ const Header = () => {
       </div>
       <div className="text-center">
         <Modal modalShown={modalShown} handleToggleClick={handleToggleClick}>
-          {" "}
           <div onClick={handleToggleClick} className="flex justify-between">
             <button
               className="rounded-2xl border-2 border-orange-300 px-[15px] py-2 text-xl hover:bg-orange-300"
-              onClick={() => setCurrentAccount("")}
+              onClick={handleDisconnectMetamaskClick}
             >
               Log out
             </button>
