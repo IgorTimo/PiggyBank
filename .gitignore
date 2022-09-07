@@ -3,3 +3,4 @@
 utils/dist/getPiggyBankBalance.dev.js
 utils/dist/getPiggyBankInfo.dev.js
 .vscode/launch.json
+contracts/ContractTypes/dist/ContractTypes.dev.js

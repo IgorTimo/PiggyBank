@@ -5,12 +5,11 @@ import Layout from "../components/Layout";
 const Index = () => {
   return (
     <Layout>
-
       <FindPiggyBankForm />
       <FindUsersPiggyBanksForm />
       <Link href="/piggy_banks/new">
-      <a className="text-2xl text-blue-500 hover:text-blue-700">
-        Or create your own piggy bank!
+        <a className="text-2xl text-blue-500 hover:text-blue-700">
+          Or create your own piggy bank!
         </a>
       </Link>
     </Layout>
