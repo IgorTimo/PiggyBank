@@ -13,8 +13,13 @@
     "ethers": "^5.6.9",
     "next": "^12.1.6",
     "react": "^18.2.0",
+<<<<<<< HEAD
     "react-dom": "^18.2.0",
     "react-jazzicon": "^1.0.4"
+=======
+    "react-datepicker": "^4.8.0",
+    "react-dom": "^18.2.0"
+>>>>>>> 6fb12c14f1d181055607f65e80f926f1513961df
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
