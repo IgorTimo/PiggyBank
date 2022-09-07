@@ -7,8 +7,6 @@ import piggyBankFactory from "../../contracts/piggy_banks_factory/piggyBankFacto
 import getPiggyBankInfo from "../../utils/getPiggyBankInfo";
 
 const PiggyBanksPage = (props) => {
-  console.log("props: ", props);
-
   if (props.arrayOfAddresses) {
     if (props.arrayOfAddresses.length > 0) {
       return <OwnerPiggyBanks arrayOfAddresses={props.arrayOfAddresses} />;
@@ -30,8 +28,8 @@ const PiggyBanksPage = (props) => {
             address
           </h1>
         )}
-        {props.owner ? (
-          <PiggyBankView {...props} />
+        {props.piggyBankInfo ? (
+          <PiggyBankView {...props.piggyBankInfo} />
         ) : (
           <>
             <FindPiggyBankForm />
@@ -51,7 +49,7 @@ export async function getServerSideProps(props) {
   if (address) {
     try {
       const response = await getPiggyBankInfo(address);
-      return { props: { ...response, ...{ contractAddress: address } } };
+      return { props: { piggyBankInfo: response } };
     } catch (error) {
       console.error(error);
       return {
