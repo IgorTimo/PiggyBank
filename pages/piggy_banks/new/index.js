@@ -12,10 +12,12 @@ const NewPiggyBankPage = () => {
   const handleCreateSubmit = async (event) => {
     event.preventDefault();
     try {
+      const date = dateRef.current.value.split("-");
+      const ms = Date.UTC(date[0], date[1], date[2]);
       const tx = await piggyBankFactoryWithSinger().createTimePiggyBank(
         ownerRef.current.value,
         descRef.current.value,
-        dateRef.current.value
+        ms
       );
       console.log("tx: ", tx);
       const response = await tx.wait();
@@ -65,7 +67,7 @@ const NewPiggyBankPage = () => {
           className="my-2 w-1/2 rounded border border-orange-300 py-1 px-4 text-xl "
           ref={dateRef}
           name="date"
-          type="text"
+          type="date"
           placeholder="enter date in uts"
         />
         <br />

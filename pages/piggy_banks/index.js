@@ -35,7 +35,7 @@ const PiggyBanksPage = (props) => {
         ) : (
           <>
             <FindPiggyBankForm />
-            <FindUsersPiggyBanksForm/>
+            <FindUsersPiggyBanksForm />
           </>
         )}
       </div>
@@ -51,7 +51,7 @@ export async function getServerSideProps(props) {
   if (address) {
     try {
       const response = await getPiggyBankInfo(address);
-      return { props: response };
+      return { props: { ...response, ...{ contractAddress: address } } };
     } catch (error) {
       console.error(error);
       return {
