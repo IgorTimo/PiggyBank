@@ -92,6 +92,7 @@ const NewPiggyBankPage = () => {
         />
         <br />
 
+
         {/* добавил Select для изменения типа создаваемой копилки */}
         <div>
           <label htmlFor="countries" className="text-2xl">
@@ -107,6 +108,7 @@ const NewPiggyBankPage = () => {
             <option value="endTime">create TimePiggyBank</option>
           </select>
         </div>
+
         <br />
 
         {/* 
