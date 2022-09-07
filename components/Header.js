@@ -23,7 +23,7 @@ const Header = () => {
 
   const router = useRouter();
 
-  const handleFindAddressClick = (event) => {
+  const handleFindAddressClick = () => {
     setMenuVisible(false);
     router.push({
       pathname: "/piggy_banks",

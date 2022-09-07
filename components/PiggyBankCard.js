@@ -7,13 +7,13 @@ import PiggyBankWithSigner from "../contracts/prggy_bank/PiggyBankWithSigner";
 const PiggyBankCard = (props) => {
   const { address, owner, isOver, desc, isWithdrawAvailable, balance } = props;
   const [isInputVisible, setInputVisible] = useState(false);
-  const ammountRef = useRef();
+  const amountRef = useRef();
 
   const handleDepositClick = async () => {
     const piggyBankWithSigner = PiggyBankWithSigner(address);
     try {
-      const ammount = ethers.utils.parseEther(ammountRef.current.value);
-      const tx = await piggyBankWithSigner.deposit({ value: ammount });
+      const amount = ethers.utils.parseEther(amountRef.current.value);
+      const tx = await piggyBankWithSigner.deposit({ value: amount });
       await tx.wait();
     } catch (error) {
       console.error(error);
@@ -40,7 +40,7 @@ const PiggyBankCard = (props) => {
       )}
       {isInputVisible && (
         <input
-          ref={ammountRef}
+          ref={amountRef}
           type="text"
           placeholder="how many ether?"
           className="ml-4 rounded border border-orange-300 py-1 px-4 "
