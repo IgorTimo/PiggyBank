@@ -29,6 +29,7 @@ const NewPiggyBankPage = () => {
     else{
         if (piggyBankType === "endTime") {
           const dateEnd = Date.parse(startDate);
+          // чекаю время 
           if(dateEnd - Date.now() < 0){
             setError("Incorrect end date")
           }
@@ -47,7 +48,7 @@ const NewPiggyBankPage = () => {
                 router.push({
                 pathname: "/piggy_banks",
                 query: { user: ownerRef.current.value },
-              });; }, 5000);
+              }); }, 5000);
           } catch (error) {
             setError("Wallet doesnt exist or user rejected transaction")
             console.error(error);
@@ -73,7 +74,7 @@ const NewPiggyBankPage = () => {
               router.push({
               pathname: "/piggy_banks",
               query: { user: ownerRef.current.value },
-            });; }, 5000);
+            }); }, 5000);
           } catch (error) {
             // как читать ошибку хз 
             setError("Wallet doesnt exist or user rejected transaction")
