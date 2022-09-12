@@ -1,16 +1,37 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useRouter } from "next/router";
 import { useAppContext } from "../hooks/useAppContext";
-
 import connectMetamask from "../utils/connectMetamask";
 import disconnectMetamask from "../utils/disconnectMetamask";
+import { RINKEBY_ID } from "../contracts/constants/constants";
 
 const Header = () => {
   const { contextState, updateContextState } = useAppContext();
   const currentAccount = contextState?.currentAccount;
   const [isMenuVisible, setMenuVisible] = useState(false);
+
+  useEffect(() => {
+    const { ethereum } = window;
+    if (ethereum) {
+      ethereum.on("accountsChanged", () => {
+        connectMetamask(updateContextState);
+      });
+      ethereum.on('chainChanged', async () => {
+        const chainId = await ethereum.request({
+          method: "eth_chainId"
+        });
+        if (chainId != RINKEBY_ID) {
+          handleDisconnectMetamaskClick();
+        }
+      });
+      return () => {
+        ethereum.removeListener("accountsChanged");
+        ethereum.removeListener("chainChanged");
+      }
+    }
+  }, []);
 
   const handleConnectMetamaskClick = async () => {
     connectMetamask(updateContextState);
