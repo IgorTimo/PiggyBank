@@ -2,6 +2,7 @@ import Link from "next/link";
 import FindPiggyBankForm from "../components/FindPiggyBankForm";
 import FindUsersPiggyBanksForm from "../components/FindUsersPiggyBanksForm";
 import Layout from "../components/Layout";
+
 const Index = () => {
   return (
     <Layout>
