@@ -55,7 +55,7 @@ const NewPiggyBankPage = () => {
           }
         }
       } else {
-        if(isNaN(amountRef.current.value) || (amountRef.current.value == "") ){
+        if(isNaN(amountRef.current.value) || (amountRef.current.value == "" ) || (amountRef.current.value == 0)){
           setError("Incorrect Amount")
         }
         else{
