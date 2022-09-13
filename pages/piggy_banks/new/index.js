@@ -17,48 +17,75 @@ const NewPiggyBankPage = () => {
   const [piggyBankType, setPiggyBankType] = useState("amount");
   // выбор даты
   const [startDate, setStartDate] = useState(new Date());
+  const [error, setError] = useState()
 
   const handleCreateSubmit = async (event) => {
     event.preventDefault();
+    // просматриваем ошибку, если адрес не указан 
+    if((ownerRef.current.value == "") ){
+      setError("No wallet input")
+    }
     // по нажатию на кнопку выбираем функцию в зависимости от select
-    if (piggyBankType === "endTime") {
-      const dateEnd = Date.parse(startDate) / 1000;
-      try {
-        const tx = await piggyBankFactoryWithSinger().createTimePiggyBank(
-          ownerRef.current.value,
-          descRef.current.value,
-          dateEnd
-        );
-        console.log("tx: ", tx);
-        const response = await tx.wait();
-        console.log("response: ", response);
-        router.push({
-          pathname: "/piggy_banks",
-          query: { user: ownerRef.current.value },
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      console.log("Amount on wei", parseEther(amountRef.current.value));
-      try {
-        const tx = await piggyBankFactoryWithSinger().createAmmountPiggyBank(
-          ownerRef.current.value,
-          descRef.current.value,
-          parseEther(amountRef.current.value)
-        );
-        console.log("tx: ", tx);
-        const response = await tx.wait();
-        console.log("response: ", response);
-        router.push({
-          pathname: "/piggy_banks",
-          query: { user: ownerRef.current.value },
-        });
-      } catch (error) {
-        console.error(error);
+    else{
+        if (piggyBankType === "endTime") {
+          const dateEnd = Date.parse(startDate);
+          // чекаю время 
+          if(dateEnd - Date.now() < 0){
+            setError("Incorrect end date")
+          }
+          else{
+            try {
+              const tx = await piggyBankFactoryWithSinger().createTimePiggyBank(
+                ownerRef.current.value,
+                descRef.current.value,
+                dateEnd
+              );
+              console.log("tx: ", tx);
+              const response = await tx.wait();
+              console.log("response: ", response);
+              setError("Transaction success")
+              setTimeout(() => { 
+                router.push({
+                pathname: "/piggy_banks",
+                query: { user: ownerRef.current.value },
+              }); }, 5000);
+          } catch (error) {
+            setError("Wallet doesnt exist or user rejected transaction")
+            console.error(error);
+          }
+        }
+      } else {
+        if(isNaN(amountRef.current.value) || (amountRef.current.value == "") ){
+          setError("Incorrect Amount")
+        }
+        else{
+          console.log("Amount on wei", parseEther(amountRef.current.value));
+          try {
+            const tx = await piggyBankFactoryWithSinger().createAmmountPiggyBank(
+              ownerRef.current.value,
+              descRef.current.value,
+              parseEther(amountRef.current.value)
+            );
+            console.log("tx: ", tx);
+            const response = await tx.wait();
+            console.log("response: ", response);
+            setError("Transaction success")
+            setTimeout(() => { 
+              router.push({
+              pathname: "/piggy_banks",
+              query: { user: ownerRef.current.value },
+            }); }, 5000);
+          } catch (error) {
+            // как читать ошибку хз 
+            setError("Wallet doesnt exist or user rejected transaction")
+            console.error(error);
+          }
+        }
       }
     }
-  };
+    console.log(error)
+  }
+
 
   console.log("Change PiggyBank Type:", piggyBankType);
   console.log("Date End:", Date.parse(startDate) / 1000);
@@ -155,6 +182,7 @@ const NewPiggyBankPage = () => {
           Create
         </button>
       </form>
+      {error ? <div className={error=="Transaction success" ? "bg-green-600 w-28 text-white" : "bg-red-600 w-28 text-white"}>{error}</div> : null}
     </Layout>
   );
 };
