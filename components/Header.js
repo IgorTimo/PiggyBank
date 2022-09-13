@@ -14,22 +14,21 @@ const Header = () => {
 
   useEffect(() => {
     const { ethereum } = window;
-    if (ethereum) {
-      ethereum.on("accountsChanged", () => {
-        connectMetamask(updateContextState);
-      });
-      ethereum.on('chainChanged', async () => {
-        const chainId = await ethereum.request({
-          method: "eth_chainId"
-        });
-        if (chainId != RINKEBY_ID) {
-          handleDisconnectMetamaskClick();
-        }
-      });
-      return () => {
-        ethereum.removeListener("accountsChanged");
-        ethereum.removeListener("chainChanged");
+    const handleChangeAccount = (accounts) => {
+      updateContextState({ currentAccount: accounts[0] });
+    };
+    const handleChangeNetwork = (chainId) => {
+      if (chainId != RINKEBY_ID) {
+        disconnectMetamask(updateContextState);
       }
+    };
+    if (ethereum) {
+      ethereum.on("accountsChanged", handleChangeAccount);
+      ethereum.on("chainChanged", handleChangeNetwork);
+      return () => {
+        ethereum.removeListener("accountsChanged", handleChangeAccount);
+        ethereum.removeListener("chainChanged", handleChangeNetwork);
+      };
     }
   }, []);
 
