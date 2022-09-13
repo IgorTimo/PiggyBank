@@ -10,6 +10,7 @@ const PiggyBankView = (props) => {
   const amountRef = useRef();
   const { contextState, updateContextState } = useAppContext();
   const currentAccount = contextState?.currentAccount;
+  const [error, setError] = useState()
 
   const handleDepositClick = async () => {
     const piggyBankWithSigner = PiggyBankWithSigner(address);
@@ -18,7 +19,9 @@ const PiggyBankView = (props) => {
       const tx = await piggyBankWithSigner.deposit({ value: amount });
       await tx.wait();
     } catch (error) {
-      console.error(error);
+setError('not enough money')
+console.error(error);
+
     }
   };
 
@@ -32,7 +35,7 @@ const PiggyBankView = (props) => {
         <h4>This piggy bank already over:(</h4>
       ) : (<>
          {currentAccount ? ( <>
-                    
+          {error ? <div className="ml-24 font-bold text-3xl text-red-500">{error}</div> : null}    
 { currentAccount != owner.toLowerCase() ? null : <button
                     onClick={() => console.log("click")}
                     disabled={!isWithdrawAvailable}
@@ -52,17 +55,16 @@ const PiggyBankView = (props) => {
                         />
                       )}
                     <button
-                        onClick={
-                          isInputVisible ? handleDepositClick : () => setInputVisible(true)
-                        }
-                        disabled={isOver}
-                        className={`my-2 ml-2 rounded border border-orange-300 py-1 px-4  ${
-                          !isOver && "hover:bg-orange-300"
-                        }`}
-                      >
-                        Deposit
-                    </button>
-                    
+        onClick={
+          isInputVisible ? handleDepositClick : () => setInputVisible(true)
+        }
+        disabled={isOver}
+        className={`my-2 ml-2 rounded border border-orange-300 py-1 px-4  ${
+          !isOver && "hover:bg-orange-300"
+        }`}
+      >
+        Deposit
+      </button>    
       </>) : <h1 className="text-4xl text-center text-red-500 font-bold">Please connect with your wallet</h1>
          } 
        
@@ -74,31 +76,3 @@ const PiggyBankView = (props) => {
 };
 
 export default PiggyBankView;
-
-
-// const PiggyBankView = (props) => {
-//   const {address, owner, isOver, desc, isWithdrawAvailable, balance } = props;
-
-//   return (
-//     <div className="my-6">
-//       <h1 className="text-2xl">Owner: {owner}</h1>
-//       <h1 className="text-2xl">Address: {address}</h1>
-//       <h1 className="text-2xl">Balance: {balance}</h1>
-//       {isOver ? (
-//         <h4>This piggy bank already over:(</h4>
-//       ) : (
-//         <button
-//           onClick={() => console.log("click")}
-//           disabled={!isWithdrawAvailable}
-//           className={`my-2 rounded border border-orange-300 py-1 px-4  ${props.isWithdrawAvailable && "hover:bg-orange-300"
-//             }`}
-//         >
-//           Get withdraw
-//         </button>
-//       )}
-//       <h6>{desc}</h6>
-//     </div>
-//   );
-// };
-
-// export default PiggyBankView;
