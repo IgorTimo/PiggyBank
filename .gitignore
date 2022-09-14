@@ -1,2 +1,15 @@
+#client
 client/.next
 client/node_modules/
+
+#hardhat
+hardhat/node_modules
+hardhat/.env
+hardhat/coverage
+hardhat/coverage.json
+hardhat/typechain
+hardhat/typechain-types
+
+#Hardhat files
+hardhat/cache
+hardhat/artifacts
