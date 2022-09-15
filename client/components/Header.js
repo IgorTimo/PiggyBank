@@ -6,6 +6,7 @@ import { useAppContext } from "../hooks/useAppContext";
 import connectMetamask from "../utils/connectMetamask";
 import disconnectMetamask from "../utils/disconnectMetamask";
 import { RINKEBY_ID } from "../contracts/constants/constants";
+import logo from './piggypink.jpg';
 
 const Header = () => {
   const { contextState, updateContextState } = useAppContext();
@@ -52,13 +53,14 @@ const Header = () => {
   };
 
   return (
-    <div className="relative mt-4 flex justify-between">
-      <div>
+    <div className="navbar navbar-expand-lg shadow-md py-4 bg-white relative flex items-center w-full justify-between">
+      <img src={logo} alt="Logo" />
+      <div className="px-8 w-full flex flex-wrap items-center">
         <Link href="/">
-          <a className="text-2xl">Home</a>
+          <a className="text-4xl block py-2 pr-4 pl-3 text-white bg-pink-400 rounded md:bg-transparent md:text-pink-400 md:p-0 dark:text-white">Home</a>
         </Link>
         <Link href="/piggy_banks">
-          <a className="ml-4 text-2xl">Piggy Banks</a>
+          <a className="ml-4 text-3xl block py-2 pr-4 pl-3 text-black bg-black-400 rounded md:bg-transparent md:text-black-400 md:p-0 dark:text-white">Piggy Banks</a>
         </Link>
       </div>
 
