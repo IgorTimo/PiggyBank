@@ -21,9 +21,9 @@ const PiggyBanksPage = (props) => {
 
   return (
     <Layout>
-      <div>
+      <div className="mt-12 ">
         {props.address && (
-          <h1 className="text-3xl">
+          <h1 className="flex justify-center text-center text-red-800 border bg-red-300 border-red-300 py-1 px-4 text-2xl hover:bg-red-500 mt-16">
             {props.address} is not correct or empty! Try again with another
             address
           </h1>
