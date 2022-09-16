@@ -6,7 +6,8 @@ import { useAppContext } from "../hooks/useAppContext";
 import connectMetamask from "../utils/connectMetamask";
 import disconnectMetamask from "../utils/disconnectMetamask";
 import { RINKEBY_ID } from "../contracts/constants/constants";
-import logo from './piggypink.jpg';
+import logo from '../public/piggypink.jpg'
+import Image from 'next/image'
 
 const Header = () => {
   const { contextState, updateContextState } = useAppContext();
@@ -51,47 +52,48 @@ const Header = () => {
       query: { user: currentAccount },
     });
   };
-
   return (
-    <div className="navbar navbar-expand-lg shadow-md py-4 bg-white relative flex items-center w-full justify-between">
-      <img src={logo} alt="Logo" />
+    <div className="navbar navbar-expand-lg shadow-md py-4 bg-white relative flex items-center w-full justify-between px-4 sm:px-6 border-2 border-pink-300">
+      <Image src="/piggypink.png" alt="me" width="104" height="104" className="h-8 w-auto sm:h-10" />
       <div className="px-8 w-full flex flex-wrap items-center">
         <Link href="/">
-          <a className="text-4xl block py-2 pr-4 pl-3 text-white bg-pink-400 rounded md:bg-transparent md:text-pink-400 md:p-0 dark:text-white">Home</a>
+          <a className="text-4xl block py-2 pr-4 pl-3 text-white bg-pink-400 rounded md:bg-transparent md:text-pink-400 md:p-0 dark:text-white hover:text-pink-600">Home</a>
         </Link>
         <Link href="/piggy_banks">
-          <a className="ml-4 text-3xl block py-2 pr-4 pl-3 text-black bg-black-400 rounded md:bg-transparent md:text-black-400 md:p-0 dark:text-white">Piggy Banks</a>
+          <a className="ml-4 text-3xl block py-2 pr-4 pl-3 text-black bg-black-400 rounded md:bg-transparent md:text-black-400 md:p-0 dark:text-white hover:text-pink-600">Piggy Banks</a>
         </Link>
       </div>
 
       {isMenuVisible && (
-        <div className="absolute right-0 top-12 rounded-2xl border-2 border-orange-300 bg-white p-4">
-          <button
-            className="rounded-2xl border-2 border-orange-300 px-[15px] py-2 text-xl hover:bg-orange-300"
-            onClick={handleDisconnectMetamaskClick}
-          >
-            Log out
-          </button>
+        <div className="absolute right-28 top-24 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+          <div className="py-1">
+            <button
+              className="w-full text-pink-700 block px-4 py-2 text-xl hover:bg-pink-300" role="menuitem" tabindex="-1" id="menu-item-0"
+              onClick={handleFindAddressClick}
+            >
+              My Piggy Banks
+            </button>
 
-          <button
-            className="ml-4 rounded-2xl border-2 border-orange-300 px-[15px] py-2 text-xl hover:bg-orange-300"
-            onClick={handleFindAddressClick}
-          >
-            My Piggy Banks
-          </button>
+            <button
+              className="w-full text-pink-700 block px-4 py-2 text-xl hover:bg-pink-300" role="menuitem" tabindex="-1" id="menu-item-1"
+              onClick={handleDisconnectMetamaskClick}
+            >
+              Log out
+            </button>
+          </div>
         </div>
       )}
-
+      <div className="px-24">
       {!currentAccount ? (
         <button
-          className="rounded-2xl border-2 border-orange-300 px-[15px] py-2 text-xl hover:bg-orange-300"
+          className="flex rounded-2xl border-2 border-pink-500 px-[18px] py-1 text-xl bg-pink-100 hover:bg-pink-300"
           onClick={handleConnectMetamaskClick}
         >
           Connect Metamask
         </button>
       ) : (
         <span
-          className="flex rounded-2xl border-2 border-orange-300 px-[15px] py-2 text-xl hover:bg-orange-300"
+          className="flex rounded-2xl border-2 px-[18px] py-3 text-xl bg-pink-100 hover:bg-pink-300"
           onClick={() => setMenuVisible(!isMenuVisible)}
         >
           <Jazzicon diameter={25} seed={jsNumberForAddress(currentAccount)} />
@@ -100,8 +102,9 @@ const Header = () => {
             currentAccount.toString().slice(38)}
         </span>
       )}
+      </div>
     </div>
-  );
+  )
 };
 
 export default Header;

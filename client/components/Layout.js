@@ -2,9 +2,11 @@ import Header from "./Header";
 
 const Layout = ({ children }) => {
   return (
-    <div className="m-auto">
+    <div>
       <Header />
+      <div className="w-full items-center">
       {children}
+      </div>
     </div>
   );
 };

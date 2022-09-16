@@ -10,9 +10,9 @@ const Index = () => {
       <FindPiggyBankForm />
       <FindUsersPiggyBanksForm />
       <Link href="/piggy_banks/new">
-      <a className="text-2xl text-blue-500 hover:text-blue-700">
+      <a className="grid justify-center text-center rounded-xl border bg-pink-100 border-pink-300 py-1 px-4 text-2xl hover:bg-pink-300 mt-16">
         Or create your own piggy bank!
-        </a>
+      </a>
       </Link>
     </Layout>
   );

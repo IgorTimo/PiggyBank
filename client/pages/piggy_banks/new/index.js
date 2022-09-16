@@ -196,7 +196,7 @@ const NewPiggyBankPage = () => {
           </svg>
           <span class="sr-only">Loading...</span>
         </div> : null}
-      {error ? <div className={error=="Transaction success" ? "bg-green-600 w-28 text-white" : "bg-red-600 w-28 text-white"}>{error}</div> : null}
+      {error ? <div className={error=="Transaction success" ? "flex justify-center text-center text-green-800 border bg-green-300 border-green-300 py-1 px-4 text-2xl hover:bg-green-500 mt-16" : "flex justify-center text-center text-red-800 border bg-red-300 border-red-300 py-1 px-4 text-2xl hover:bg-red-500 mt-16"}>{error}</div> : null}
     </Layout>
   );
 };

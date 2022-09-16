@@ -21,10 +21,11 @@ const PiggyBankView = (props) => {
       const amount = ethers.utils.parseEther(amountRef.current.value);
       const tx = await piggyBankWithSigner.deposit({ value: amount });
       await tx.wait();
+      if(tx){setError("Transaction Success")}
     } catch (error) {
       if(error.code === "INSUFFICIENT_FUNDS") {setError('Not Enough Funds')}
       else if(error.code === "INVALID_ARGUMENT") {setError('Invalid Input')}
-      else if(error.code === "ACTION_REJECTED") {setError('Transaction Was Rejected')}
+      else if(error.code === "ACTION_REJECTED") {setError('Invalid Input')}
       else {setError("Error")}
       console.error(error.code);
     }
@@ -32,11 +33,11 @@ const PiggyBankView = (props) => {
   };
 
   return (
-    <div className="my-6">
+    <div className="my-6 w-full bg-white shadow-md px-8 pt-6 pb-8 mb-4 border-2 border-pink-300 ">
       <h1 className="text-2xl">Owner: {owner}</h1>
       <h1 className="text-2xl">Address: {address}</h1>
       <h1 className="text-2xl">Balance: {balance}</h1>
-      <h2 className="text-xl">{desc}</h2>
+      <h2 className="text-2xl">Description: {desc}</h2>
       {isOver ? (
         <h4>This piggy bank already over:(</h4>
       ) : (<>
@@ -45,7 +46,7 @@ const PiggyBankView = (props) => {
           <button
             onClick={() => console.log("click")}
             disabled={!isWithdrawAvailable}
-            className={`my-2 rounded border border-orange-300 py-1 px-4  ${props.isWithdrawAvailable && "hover:bg-orange-300"}`
+            className={`my-2 rounded border bg-pink-100 border-pink-300 py-1 px-4 text-xl hover:bg-pink-300  ${props.isWithdrawAvailable && "hover:bg-pink-300"}`
           }>
             Get withdraw
           </button>}
@@ -54,13 +55,13 @@ const PiggyBankView = (props) => {
                 ref={amountRef}
                 type="text"
                 placeholder="how many ether?"
-                className="ml-4 rounded border border-orange-300 py-1 px-4 "
+                className="my-2 ml-2 rounded border bg-pink-100 border-pink-300 py-1 px-4 text-xl"
               />
             )}
           <button
             onClick={isInputVisible ? handleDepositClick : () => setInputVisible(true)}
-            disabled = {loader || isOver}
-            className={`my-2 ml-2 rounded border border-orange-300 py-1 px-4  ${!isOver && "hover:bg-orange-300"}`
+            disabled={isOver}
+            className={`my-2 ml-2 rounded border bg-pink-100 border-pink-300 py-1 px-4 text-xl hover:bg-pink-300  ${!isOver && "hover:bg-pink-300"}`
           }>
             Deposit
           </button>    
@@ -74,7 +75,7 @@ const PiggyBankView = (props) => {
               </svg>
               <span class="sr-only">Loading...</span>
             </div> : null}
-          {error ? <div className="ml-24 font-bold text-3xl text-red-500">{error}</div> : null}   
+          {error ? <div className={error=="Transaction Success" ? "flex justify-center text-center text-green-800 border bg-green-300 border-green-300 py-1 px-4 text-2xl hover:bg-green-500 mt-16" : "flex justify-center text-center text-red-800 border bg-red-300 border-red-300 py-1 px-4 text-2xl hover:bg-red-500 mt-16"}>{error}</div> : null}
         </>
       )}
     </div>
