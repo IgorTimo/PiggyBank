@@ -1,4 +1,4 @@
-const { task, types } = require("hardhat/config");
+const { task } = require("hardhat/config");
 
 const MIN_CONFIRMATIONS_TO_WAIT = 6;
 
@@ -21,7 +21,7 @@ task(
     console.log(`Deploying ${factoryName}...`);
 
     const Factory = await ethers.getContractFactory(factoryName);
-    const factory = await Factory.deploy(ethers.utils.getAddress(masterAddress));
+    const factory = await Factory.deploy(masterAddress);
     await factory.deployed();
 
     console.log(`${factoryName} deployed to ${factory.address}.`);
@@ -102,7 +102,7 @@ task(
     } catch (error) {
       if (error.toString().includes("Reason: Already Verified")) {
         console.log(`${piggyBankName} source code was already verified.`);
-        
+
       } else {
         throw error;
       }
