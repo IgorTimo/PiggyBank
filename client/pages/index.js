@@ -1,9 +1,13 @@
 import Link from "next/link";
+import { useEffect } from "react";
 import FindPiggyBankForm from "../components/FindPiggyBankForm";
 import FindUsersPiggyBanksForm from "../components/FindUsersPiggyBanksForm";
 import Layout from "../components/Layout";
 
 const Index = () => {
+  useEffect(() => {
+    document.title = "Home";
+  });
   return (
     <Layout>
 
