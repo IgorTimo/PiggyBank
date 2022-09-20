@@ -40,6 +40,8 @@ npx hardhat --network rinkeby add-factory --factory-name AmountPiggyBankFactory 
 
 Verifies and publishes Piggy Bank source code. A new Piggy Bank contract will be deployed in order to link the sources to it.
 
+Please specify etherscan API key in the `etherscan.apiKey.rinkeby` setting in the [hardhat.config.js](./hardhat.config.js) file before running the task. Please follow [official instructions](https://info.etherscan.com/etherscan-developer-api-key/) to get the key.
+
 Example:
 ```sh
 npx hardhat --network rinkeby verify-piggy-bank-at-etherscan --factory-address 0xB5EBdf51651D0d1a5E9b03c703fF1bBB2e3A4189 --factory-name AmountPiggyBankFactory --master-address 0x86b85d9b3e9f3Dc0A7803286ad32A78c43aD3215 --piggy-bank-name AmountPiggyBank --create-method "createAmountPiggyBank(address,string,uint256)" --create-arg-list "0x86b85d9b3e9f3Dc0A7803286ad32A78c43aD3215;Amount Piggy Bank #001;1001"
@@ -48,6 +50,8 @@ npx hardhat --network rinkeby verify-piggy-bank-at-etherscan --factory-address 0
 ### `add-factory-and-verify-piggy-bank-at-etherscan`
 
 Combines [`add-factory`](#add-factory) and [`verify-piggy-bank-at-etherscan`](#verify-piggy-bank-at-etherscan) tasks. It creates a new Factory and registers it in [`Master`](./contracts/PiggyBankMaster.sol), and then verifies and publishes Piggy Bank source code.
+
+Please specify etherscan API key in the `etherscan.apiKey.rinkeby` setting in the [hardhat.config.js](./hardhat.config.js) file before running the task. Please follow [official instructions](https://info.etherscan.com/etherscan-developer-api-key/) to get the key.
 
 Example:
 ```sh
