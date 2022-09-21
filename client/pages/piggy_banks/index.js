@@ -5,8 +5,12 @@ import OwnerPiggyBanks from "../../components/OwnerPiggyBanks";
 import PiggyBankView from "../../components/PiggyBankView";
 import piggyBankFactory from "../../contracts/piggy_banks_factory/piggyBankFactory";
 import getPiggyBankInfo from "../../utils/getPiggyBankInfo";
+import { useEffect } from "react";
 
 const PiggyBanksPage = (props) => {
+  useEffect(() => {
+    document.title = "PiggyBank";
+  });
   if (props.arrayOfAddresses) {
     if (props.arrayOfAddresses.length > 0) {
       return <OwnerPiggyBanks arrayOfAddresses={props.arrayOfAddresses} />;
