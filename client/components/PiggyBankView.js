@@ -6,7 +6,7 @@ import connectMetamask from "../utils/connectMetamask";
 
 
 const PiggyBankView = (props) => {
-  const {address, owner, isOver, desc, isWithdrawAvailable, balance} = props;
+  const {address, owner, isOver, desc, isWithdrawAvailable, balance, type} = props;
   const [isInputVisible, setInputVisible] = useState(false);
   const amountRef = useRef();
   const { contextState, updateContextState } = useAppContext();
@@ -45,6 +45,8 @@ const PiggyBankView = (props) => {
       <h1 className="text-2xl">Address: {address}</h1>
       <h1 className="text-2xl">Balance: {balance}</h1>
       <h2 className="text-2xl">Description: {desc}</h2>
+      <h2 className="text-2xl">Type: {type}</h2>
+
       {isOver ? (
         <h4>This piggy bank already over:(</h4>
       ) : (<>

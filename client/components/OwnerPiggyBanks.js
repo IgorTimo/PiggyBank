@@ -12,8 +12,9 @@ const OwnerPiggyBanks = ({ arrayOfAddresses }) => {
         const piggyBanks = [];
         for (let i = 0; i < arrayOfAddresses.length; i++) {
           const response = {
-            ...(await getPiggyBankInfo(arrayOfAddresses[i])),
-            address: arrayOfAddresses[i],
+            ...(await getPiggyBankInfo(arrayOfAddresses[i][0])),
+            address: arrayOfAddresses[i][0],
+            type: arrayOfAddresses[i][1]
           };
           piggyBanks.push(response);
         }

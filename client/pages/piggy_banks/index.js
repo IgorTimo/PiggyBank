@@ -6,6 +6,8 @@ import PiggyBankView from "../../components/PiggyBankView";
 import piggyBankFactory from "../../contracts/piggy_banks_factory/piggyBankFactory";
 import getPiggyBankInfo from "../../utils/getPiggyBankInfo";
 import { useEffect } from "react";
+import piggyBankMaster from "../../contracts/piggy_banks_factory/Master";
+import piggyBankFactoryWithSinger from "../../contracts/piggy_banks_factory/piggyBankFactoryWithSinger";
 
 const PiggyBanksPage = (props) => {
   useEffect(() => {
@@ -21,7 +23,25 @@ const PiggyBanksPage = (props) => {
         </Layout>
       );
     }
-  }
+  }  
+
+  // useEffect(() => {
+  //   (async () => {
+  //     console.log("Im here")
+  //     if ('0xb48bba10bac56559fb7aa3a64e52b4ae968ef555') {
+  //       try {
+  //         const response = await piggyBankFactoryWithSinger(piggyBankMaster).getPiggyBanksByOwner(
+  //           '0xb48bba10bac56559fb7aa3a64e52b4ae968ef555',
+  //         );;
+  //         response =  response.map(piggy => {return (piggy[0])})
+  //         console.log(response)
+  //       }
+  //       catch (error) {
+  //         console.log(error)
+  //         };
+  //       }
+  //     })()
+  //   })
 
   return (
     <Layout>
@@ -50,6 +70,7 @@ export default PiggyBanksPage;
 export async function getServerSideProps(props) {
   const address = props.query.address;
   const user = props.query.user;
+
   if (address) {
     try {
       const response = await getPiggyBankInfo(address);
@@ -64,17 +85,31 @@ export async function getServerSideProps(props) {
 
   if (user) {
     try {
-      const arrayOfAddresses = await piggyBankFactory.getPiggyBanksByAddress(
-        user
-      );
-      return { props: { arrayOfAddresses: arrayOfAddresses } };
+      const response = await piggyBankMaster.getPiggyBanksByOwner(user);
+      console.log(response)
+      const arrayOfAddresses =  response.map(piggy => {return (piggy)})
+      return { props: { arrayOfAddresses: arrayOfAddresses,  } };
     } catch (error) {
       console.error(error);
       return {
-        props: { address: user },
+        props: { address },
       };
     }
   }
+
+  // if (user) {
+  //   try {
+  //     const arrayOfAddresses = await piggyBankFactory.getPiggyBanksByOwner(
+  //       user
+  //     );
+  //     return { props: { arrayOfAddresses: arrayOfAddresses } };
+  //   } catch (error) {
+  //     console.error(error);
+  //     return {
+  //       props: { address: user },
+  //     };
+  //   }
+  // }
 
   return {
     props: {},
