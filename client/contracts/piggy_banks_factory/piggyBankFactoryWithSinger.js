@@ -1,9 +1,8 @@
 import metamaskProvider from "../metamaskProvider";
-import piggyBankFactory from "./piggyBankFactory";
 
-const piggyBankFactoryWithSinger = () => {
+const piggyBankFactoryWithSinger = (factory) => {
   const signer = metamaskProvider.getSigner();
-  return piggyBankFactory.connect(signer);
+  return factory.connect(signer);
 };
 
 export default piggyBankFactoryWithSinger;
