@@ -6,7 +6,6 @@ import { useAppContext } from "../hooks/useAppContext";
 import connectMetamask from "../utils/connectMetamask";
 import disconnectMetamask from "../utils/disconnectMetamask";
 import { RINKEBY_ID } from "../contracts/constants/constants";
-import logo from '../public/piggypink.jpg'
 import Image from 'next/image'
 
 const Header = () => {
@@ -53,14 +52,16 @@ const Header = () => {
     });
   };
   return (
-    <div className="navbar navbar-expand-lg shadow-md py-4 bg-white relative flex items-center w-full justify-between px-4 sm:px-6 border-2 border-pink-300">
-      <Image src="/piggypink.png" alt="me" width="104" height="104" className="h-8 w-auto sm:h-10" />
+    <div onClick={() => setMenuVisible(false)} className="navbar navbar-expand-lg shadow-md py-4 bg-white relative flex items-center w-full justify-between px-4 sm:px-6 border-2 border-pink-300">
       <div className="px-8 w-full flex flex-wrap items-center">
         <Link href="/">
-          <a className="text-4xl block py-2 pr-4 pl-3 text-white bg-pink-400 rounded md:bg-transparent md:text-pink-400 md:p-0 dark:text-white hover:text-pink-600">Home</a>
+        <a><Image src="/piggypink.svg" alt="me" width="68" height="68" className="h-8 w-auto sm:h-10" /></a>
         </Link>
         <Link href="/piggy_banks">
-          <a className="ml-4 text-3xl block py-2 pr-4 pl-3 text-black bg-black-400 rounded md:bg-transparent md:text-black-400 md:p-0 dark:text-white hover:text-pink-600">Piggy Banks</a>
+          <a className="ml-12 text-3xl block py-2 pr-4 pl-3 text-black bg-black-400 rounded md:bg-transparent md:text-black-400 md:p-0 dark:text-white hover:text-pink-600">Find PiggyBanks</a>
+        </Link>
+        <Link href="/piggy_banks/new">
+          <a className="ml-8 text-3xl block py-2 pr-4 pl-3 text-black bg-black-400 rounded md:bg-transparent md:text-black-400 md:p-0 dark:text-white hover:text-pink-600">Create PiggyBank</a>
         </Link>
       </div>
 
@@ -92,6 +93,7 @@ const Header = () => {
           Connect Metamask
         </button>
       ) : (
+        <div onClick={e => e.stopPropagation()}>
         <span
           className="flex rounded-2xl border-2 px-[18px] py-3 text-xl bg-pink-100 hover:bg-pink-300"
           onClick={() => setMenuVisible(!isMenuVisible)}
@@ -101,6 +103,7 @@ const Header = () => {
             "..." +
             currentAccount.toString().slice(38)}
         </span>
+        </div>
       )}
       </div>
     </div>

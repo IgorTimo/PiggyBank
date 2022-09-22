@@ -9,6 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAppContext } from "../../../hooks/useAppContext";
 
 const NewPiggyBankPage = () => {
+  useEffect(() => {
+    document.title = "CreatePiggyBank";
+  });
   const router = useRouter();
   const ownerRef = useRef();
   const descRef = useRef();
