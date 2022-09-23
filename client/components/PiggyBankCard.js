@@ -2,7 +2,7 @@ import Link from "next/link";
 
 
 const PiggyBankCard = (props) => {
-  const { address, owner, balance } = props;
+  const { address, owner, balance, type } = props;
 
 
   return (
@@ -10,6 +10,7 @@ const PiggyBankCard = (props) => {
       <h1 className="text-2xl">Owner: {owner}</h1>
       <h1 className="text-2xl">Address: {address}</h1>
       <h1 className="text-2xl pb-2">Balance: {balance}</h1>
+      <h1 className="text-2xl pb-2">Type: {type}</h1>
       <Link
         href={{
           pathname: "/piggy_banks",
