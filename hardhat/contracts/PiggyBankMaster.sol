@@ -9,8 +9,8 @@ contract PiggyBankMaster is IPiggyBankObserver {
         string piggyBankType;
     }
 
-    mapping(address => bool) private factories;
-    mapping(string => bool) private piggyBankTypes;
+    mapping(address => bool) private registeredFactories;
+    mapping(string => bool) private registeredPiggyBankTypes;
     mapping(address => string) private factoryTypes;
 
     mapping(address => PiggyBankDetails[]) piggyBanksByOwner;
@@ -20,11 +20,11 @@ contract PiggyBankMaster is IPiggyBankObserver {
         address _factory
     ) external {
         // TODO:  Add authorizatoin check.
-        require(!factories[_factory], "Factory is already registered!");
-        require(!piggyBankTypes[_piggyBankType], "Piggy bank type is already in use!");
+        require(!registeredFactories[_factory], "Factory is already registered!");
+        require(!registeredPiggyBankTypes[_piggyBankType], "Piggy bank type is already in use!");
 
-        factories[_factory] = true;
-        piggyBankTypes[_piggyBankType] = true;
+        registeredFactories[_factory] = true;
+        registeredPiggyBankTypes[_piggyBankType] = true;
         factoryTypes[_factory] = _piggyBankType;
     }
 
@@ -32,7 +32,7 @@ contract PiggyBankMaster is IPiggyBankObserver {
         address _owner,
         address _newPiggyBank
     ) override external {
-        require(factories[msg.sender], "Not a known factory!");
+        require(registeredFactories[msg.sender], "Not a known factory!");
 
         piggyBanksByOwner[_owner].push(PiggyBankDetails({
             piggyBankAddress: _newPiggyBank,
