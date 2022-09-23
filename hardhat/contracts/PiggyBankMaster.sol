@@ -14,6 +14,7 @@ contract PiggyBankMaster is IPiggyBankObserver {
     mapping(address => string) private factoryTypes;
 
     mapping(address => PiggyBankDetails[]) piggyBanksByOwner;
+    mapping(address => string) piggyBankTypes;
 
     function registerPiggyBankFactory(
         string memory _piggyBankType,
@@ -34,15 +35,25 @@ contract PiggyBankMaster is IPiggyBankObserver {
     ) override external {
         require(registeredFactories[msg.sender], "Not a known factory!");
 
+        string memory piggyBankType = factoryTypes[msg.sender];
+
         piggyBanksByOwner[_owner].push(PiggyBankDetails({
             piggyBankAddress: _newPiggyBank,
-            piggyBankType: factoryTypes[msg.sender]
+            piggyBankType: piggyBankType
         }));
+
+        piggyBankTypes[_newPiggyBank] = piggyBankType;
     }
 
     function getPiggyBanksByOwner(
         address _owner
     ) external view returns (PiggyBankDetails[] memory) {
         return piggyBanksByOwner[_owner];
+    }
+
+    function getPiggyBankType(
+        address _piggyBank
+    ) external view returns (string memory) {
+        return piggyBankTypes[_piggyBank];
     }
 }
