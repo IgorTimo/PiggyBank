@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import getPiggyBankInfo from "../utils/getPiggyBankInfo";
+import getPiggyBankParentInfo from "../utils/getPiggyBankParentInfo";
 import Layout from "./Layout";
 import PiggyBankCard from "./PiggyBankCard";
 
@@ -12,8 +12,7 @@ const OwnerPiggyBanks = ({ arrayOfAddresses }) => {
         const piggyBanks = [];
         for (let i = 0; i < arrayOfAddresses.length; i++) {
           const response = {
-            ...(await getPiggyBankInfo(arrayOfAddresses[i][0])),
-            address: arrayOfAddresses[i][0],
+            ...(await getPiggyBankParentInfo(arrayOfAddresses[i][0])),
             type: arrayOfAddresses[i][1]
           };
           piggyBanks.push(response);
