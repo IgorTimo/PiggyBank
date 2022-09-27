@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
-import defaultProvider from "../../defaultProvider";
+import defaultProvider from "../defaultProvider";
+
 
 const abi = ["function targetAmount() public view returns (uint256 targetAmount)"];
 

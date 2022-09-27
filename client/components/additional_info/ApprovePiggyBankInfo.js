@@ -3,10 +3,15 @@ import { useEffect, useState } from "react";
 import ApprovePiggyBank from "../../contracts/additional_piggy_banks/ApprovePiggyBank";
 import ContractWithSinger from "../../contracts/ContractWithSigner";
 import { useAppContext } from "../../hooks/useAppContext";
+import getErrorMessage from "../../utils/getErrorMessage";
+import ErrorView from "../ErrorView";
+import Loader from "../Loader";
 
 const ApprovePiggyBankInfo = ({ address }) => {
   const [approver, setApprover] = useState("");
   const [isApproved, setApproved] = useState(false);
+  const [error, setError] = useState();
+  const [isPending, setPending] = useState(false);
   const { contextState } = useAppContext();
   const currentAccount = contextState?.currentAccount;
   const router = useRouter();
@@ -26,14 +31,25 @@ const ApprovePiggyBankInfo = ({ address }) => {
   }, []);
 
   const handleApproveClick = async () => {
+    setPending(true);
+    setError("")
     try {
       const tx = await approvePiggyBankWithSigner.setApproved();
       await tx.wait();
       router.reload();
     } catch (error) {
-      console.error(error);
+      const message = getErrorMessage(error.code);
+      setError(message);
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      console.error(message);
+    } finally {
+      setPending(false);
     }
   };
+
+  if (isPending) return <Loader />;
 
   return (
     <>
@@ -50,6 +66,7 @@ const ApprovePiggyBankInfo = ({ address }) => {
           </button>
         )
       )}
+      {error && <ErrorView error={error} />}
     </>
   );
 };

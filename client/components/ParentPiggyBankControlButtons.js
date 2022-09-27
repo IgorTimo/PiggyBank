@@ -5,6 +5,7 @@ import { useAppContext } from "../hooks/useAppContext";
 import connectMetamask from "../utils/connectMetamask";
 import getErrorMessage from "../utils/getErrorMessage";
 import DepositButton from "./DepositButton";
+import ErrorView from "./ErrorView";
 import Loader from "./Loader";
 
 const ParentPiggyBankControlButtons = ({
@@ -26,7 +27,7 @@ const ParentPiggyBankControlButtons = ({
 
   const handleWithdrawClick = async () => {
     setPending(true);
-    setError("")
+    setError("");
     try {
       const tx = await piggyBankWithSigner.withdraw();
       await tx.wait();
@@ -76,15 +77,7 @@ const ParentPiggyBankControlButtons = ({
           </button>
         </div>
       )}
-      {error && (
-        <div
-          className={
-            "flex w-1/3 justify-center border bg-red-400 py-1 px-4 text-3xl font-bold text-red-800"
-          }
-        >
-          {error}
-        </div>
-      )}
+      {error && <ErrorView error={error} />}
     </>
   );
 };
