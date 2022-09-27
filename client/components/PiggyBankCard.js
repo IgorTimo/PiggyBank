@@ -1,24 +1,30 @@
 import Link from "next/link";
 
 const PiggyBankCard = (props) => {
-  const { address, owner, balance, type } = props;
+
+  const { address, owner, isOver, balance, type, desc } = props;
+
+
   return (
-    <div className="my-8 w-full bg-white shadow-md px-8 pt-6 pb-8 mb-4 border-2 border-pink-300">
-      <h1 className="text-2xl">Owner: {owner}</h1>
-      <h1 className="text-2xl">Address: {address}</h1>
-      <h1 className="text-2xl pb-2">Balance: {balance}</h1>
-      <h1 className="text-2xl pb-2">Type: {type}</h1>
-      <Link
-        href={{
-          pathname: "/piggy_banks",
-          query: { address: address },
-        }}
-      >
-        <a className="text-blue-500 text-2xl hover:underline">
-          See details or make deposit
-        </a>
-      </Link>
-    </div>
+    <Link
+      href={{
+        pathname: "/piggy_banks",
+        query: { address: address },
+      }}
+    >
+      <a>
+        <div className="my-8 mb-4 w-full border-2 border-pink-300 bg-white px-8 pt-6 pb-8 shadow-md">
+          <h1 className="text-2xl">Owner: {owner}</h1>
+          <h1 className="text-2xl">Address: {address}</h1>
+          <h1 className="text-2xl">Balance: {balance}</h1>
+          <h1 className="text-2xl">Type: {type}</h1>
+          <h1 className="text-2xl">Description: {desc}</h1>
+          <h1 className="text-2xl">
+            PiggyBank is over: {isOver ? "yes" : "no"}
+          </h1>
+        </div>
+      </a>
+    </Link>
   );
 };
 
