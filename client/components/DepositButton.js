@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useRef } from "react";
+import getErrorMessage from "../utils/getErrorMessage";
 
 const DepositButton = ({ setError, setPending, piggyBankWithSigner }) => {
   const router = useRouter();
@@ -17,21 +18,15 @@ const DepositButton = ({ setError, setPending, piggyBankWithSigner }) => {
       await tx.wait();
       router.reload();
     } catch (error) {
-      if (error.code === "INSUFFICIENT_FUNDS") {
-        setError("Not Enough Funds");
-      } else if (error.code === "INVALID_ARGUMENT") {
-        setError("Invalid Input");
-      } else if (error.code === "ACTION_REJECTED") {
-        setError("Transaction was Rejected");
-      } else {
-        setError("Error");
-      }
+      const message = getErrorMessage(error.code);
+      setError(message);
       setTimeout(() => {
         setError("");
       }, 2000);
-      console.error(error);
+      console.error(message);
+    } finally {
+      setPending(false);
     }
-    setPending(false);
   };
 
   return (

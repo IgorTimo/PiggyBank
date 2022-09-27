@@ -15,8 +15,8 @@ const PiggyBankView = (props) => {
 
   const additionals = {
     [TYPE_AMOUNT_PIGGY_BANK]: <AmountPiggyBankInfo address={address} />,
-    [TYPE_TIME_PIGGY_BANK]: <TimePiggyBankInfo />,
-    [TYPE_APPROVE_PIGGY_BANK]: <ApprovePiggyBankInfo />,
+    [TYPE_TIME_PIGGY_BANK]: <TimePiggyBankInfo address={address}  />,
+    [TYPE_APPROVE_PIGGY_BANK]: <ApprovePiggyBankInfo address={address} />,
   };
 
   return (

@@ -1,8 +1,9 @@
-import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import PiggyBankWithSigner from "../contracts/prggy_bank/PiggyBankWithSigner";
 import { useAppContext } from "../hooks/useAppContext";
+import connectMetamask from "../utils/connectMetamask";
+import getErrorMessage from "../utils/getErrorMessage";
 import DepositButton from "./DepositButton";
 import Loader from "./Loader";
 
@@ -23,6 +24,25 @@ const ParentPiggyBankControlButtons = ({
     connectMetamask(updateContextState);
   };
 
+  const handleWithdrawClick = async () => {
+    setPending(true);
+    setError("")
+    try {
+      const tx = await piggyBankWithSigner.withdraw();
+      await tx.wait();
+      router.reload();
+    } catch (error) {
+      const message = getErrorMessage(error.code);
+      setError(message);
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      console.error(message);
+    } finally {
+      setPending(false);
+    }
+  };
+
   if (isPending) return <Loader />;
 
   return (
@@ -31,7 +51,7 @@ const ParentPiggyBankControlButtons = ({
         <>
           {currentAccount === owner.toLowerCase() && (
             <button
-              onClick={() => console.log("click")}
+              onClick={handleWithdrawClick}
               disabled={!isWithdrawAvailable}
               className={`my-2 rounded border border-pink-300 bg-pink-100 py-1 px-4 text-xl   ${
                 isWithdrawAvailable && "cursor-pointer hover:bg-pink-300"
@@ -58,7 +78,9 @@ const ParentPiggyBankControlButtons = ({
       )}
       {error && (
         <div
-          className={"flex w-1/3 justify-center border bg-red-400 py-1 px-4 text-3xl font-bold text-red-800"}
+          className={
+            "flex w-1/3 justify-center border bg-red-400 py-1 px-4 text-3xl font-bold text-red-800"
+          }
         >
           {error}
         </div>
