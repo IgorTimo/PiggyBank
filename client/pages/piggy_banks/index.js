@@ -6,6 +6,7 @@ import PiggyBankView from "../../components/PiggyBankView";
 import getPiggyBankParentInfo from "../../utils/getPiggyBankParentInfo";
 import { useEffect } from "react";
 import piggyBankMaster from "../../contracts/piggy_banks_factory/Master";
+import getPiggyBankUniqueInfo from "../../utils/getPiggyBankUniqueInfo";
 
 const PiggyBanksPage = (props) => {
   useEffect(() => {
@@ -21,7 +22,7 @@ const PiggyBanksPage = (props) => {
         </Layout>
       );
     }
-  }  
+  }
 
   return (
     <Layout>
@@ -54,7 +55,16 @@ export async function getServerSideProps(props) {
   if (address) {
     try {
       const response = await getPiggyBankParentInfo(address);
-      return { props: { piggyBankInfo: response } };
+      const arrayOfAddresses = await piggyBankMaster.getPiggyBanksByOwner(response.owner);
+      let type = null;
+      for (let i = 0; i < arrayOfAddresses.length; i++) {
+        if (arrayOfAddresses[i][0] === address) {
+          type = arrayOfAddresses[i][1];
+          break;
+        }
+      }
+      const contractUniqueInfo = await getPiggyBankUniqueInfo(address, type);
+      return { props: { piggyBankInfo: {...response, type, contractUniqueInfo}, } };
     } catch (error) {
       console.error(error);
       return {
@@ -66,7 +76,8 @@ export async function getServerSideProps(props) {
   if (user) {
     try {
       const response = await piggyBankMaster.getPiggyBanksByOwner(user);
-      return { props: { arrayOfAddresses: response,  } };
+      console.log(response);
+      return { props: { arrayOfAddresses: response, } };
     } catch (error) {
       console.error(error);
     }

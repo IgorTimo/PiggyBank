@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 const PiggyBankCard = (props) => {
+
   const { address, owner, isOver, balance, type, desc } = props;
+
 
   return (
     <Link
