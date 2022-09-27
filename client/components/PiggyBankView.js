@@ -5,7 +5,7 @@ import { useAppContext } from "../hooks/useAppContext";
 import connectMetamask from "../utils/connectMetamask";
 
 const PiggyBankView = (props) => {
-  const { address, owner, isOver, desc, isWithdrawAvailable, balance } = props;
+  const { address, owner, isOver, desc, isWithdrawAvailable, balance, type, contractUniqueInfo } = props;
   const [isInputVisible, setInputVisible] = useState(false);
   const amountRef = useRef();
   const { contextState, updateContextState } = useAppContext();
@@ -55,6 +55,11 @@ const PiggyBankView = (props) => {
       <h1 className="text-2xl">Address: {address}</h1>
       <h1 className="text-2xl">Balance: {balance}</h1>
       <h2 className="text-2xl">Description: {desc}</h2>
+      {type && <h2 className="text-2xl">Type: {type}</h2>}
+      {!type && <h2 className="text-2xl">Type: Неизвестный тип подключен к нашему контракту</h2>}
+      {contractUniqueInfo.length > 0 && contractUniqueInfo.map(info => {
+        return <h1 key={info.name} className="text-2xl">{info.name} : {info.value}</h1>
+      })}
 
       {isOver ? (
         <h4>This piggy bank already over:(</h4>
@@ -66,9 +71,8 @@ const PiggyBankView = (props) => {
                 <button
                   onClick={() => console.log("click")}
                   disabled={!isWithdrawAvailable}
-                  className={`my-2 rounded border border-pink-300 bg-pink-100 py-1 px-4 text-xl hover:bg-pink-300  ${
-                    props.isWithdrawAvailable && "hover:bg-pink-300"
-                  }`}
+                  className={`my-2 rounded border border-pink-300 bg-pink-100 py-1 px-4 text-xl hover:bg-pink-300  ${props.isWithdrawAvailable && "hover:bg-pink-300"
+                    }`}
                 >
                   Get withdraw
                 </button>
@@ -110,9 +114,8 @@ const PiggyBankView = (props) => {
                       : () => setInputVisible(true)
                   }
                   disabled={isOver}
-                  className={`my-2 ml-2 rounded border border-pink-300 bg-pink-100 py-1 px-4 text-xl hover:bg-pink-300  ${
-                    !isOver && "hover:bg-pink-300"
-                  }`}
+                  className={`my-2 ml-2 rounded border border-pink-300 bg-pink-100 py-1 px-4 text-xl hover:bg-pink-300  ${!isOver && "hover:bg-pink-300"
+                    }`}
                 >
                   Deposit
                 </button>
