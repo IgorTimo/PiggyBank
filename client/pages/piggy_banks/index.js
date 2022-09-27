@@ -6,16 +6,19 @@ import PiggyBankView from "../../components/PiggyBankView";
 import getPiggyBankParentInfo from "../../utils/getPiggyBankParentInfo";
 import { useEffect } from "react";
 import piggyBankMaster from "../../contracts/piggy_banks_factory/Master";
-import getPiggyBankUniqueInfo from "../../utils/getPiggyBankUniqueInfo";
 import getPiggyBankTypeByAddressAndOwner from "../../utils/getPiggyBankTypeByAddressAndOwner";
 
 const PiggyBanksPage = (props) => {
   useEffect(() => {
     document.title = "PiggyBank";
   });
-  if (props.arrayOfAddresses) {
-    if (props.arrayOfAddresses.length > 0) {
-      return <OwnerPiggyBanks arrayOfAddresses={props.arrayOfAddresses} />;
+  if (props.arrayOfAddressesAndTypes) {
+    if (props.arrayOfAddressesAndTypes.length > 0) {
+      return (
+        <OwnerPiggyBanks
+          arrayOfAddressesAndTypes={props.arrayOfAddressesAndTypes}
+        />
+      );
     } else {
       return (
         <Layout>
@@ -79,8 +82,7 @@ export async function getServerSideProps(props) {
   if (user) {
     try {
       const response = await piggyBankMaster.getPiggyBanksByOwner(user);
-      console.log(response);
-      return { props: { arrayOfAddresses: response } };
+      return { props: { arrayOfAddressesAndTypes: response } };
     } catch (error) {
       console.error(error);
     }

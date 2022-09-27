@@ -55,7 +55,7 @@ const Header = () => {
     <div onClick={() => setMenuVisible(false)} className="navbar navbar-expand-lg shadow-md py-4 bg-white relative flex items-center w-full justify-between px-4 sm:px-6 border-2 border-pink-300">
       <div className="px-8 w-full flex flex-wrap items-center">
         <Link href="/">
-        <a><Image src="/piggypink.svg" alt="me" width="68" height="68" className="h-8 w-auto sm:h-10" /></a>
+        <a><Image src="/images/piggypink.svg" alt="me" width="68" height="68" className="h-8 w-auto sm:h-10" /></a>
         </Link>
         <Link href="/piggy_banks">
           <a className="ml-12 text-3xl block py-2 pr-4 pl-3 text-black bg-black-400 rounded md:bg-transparent md:text-black-400 md:p-0 dark:text-white hover:text-pink-600">Find PiggyBanks</a>
