@@ -1,17 +1,17 @@
-const getErrorMessage = (code) => {
-  if (code === "INSUFFICIENT_FUNDS") {
+const getErrorMessage = (error) => {
+  if (error.code === "INSUFFICIENT_FUNDS") {
     return "Not Enough Funds";
   }
 
-  if (code === "INVALID_ARGUMENT") {
+  if (error.code === "INVALID_ARGUMENT") {
     return "Invalid Input";
   }
 
-  if (code === "ACTION_REJECTED") {
+  if (error.code === "ACTION_REJECTED") {
     return "Transaction was Rejected";
   }
 
-  return code;
+  return error.message;
 };
 
 export default getErrorMessage;

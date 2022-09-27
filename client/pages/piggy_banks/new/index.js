@@ -6,16 +6,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAppContext } from "../../../hooks/useAppContext";
 import connectMetamask from "../../../utils/connectMetamask";
-import ContractWithSigner from "../../../contracts/ContractWithSigner"
+import ContractWithSigner from "../../../contracts/ContractWithSigner";
 import AmountPiggyBankFactory from "../../../contracts/piggy_banks_factory/AmountPiggyBankFactory";
 import ApprovePiggyBankFactory from "../../../contracts/piggy_banks_factory/ApprovePiggyBankFactory";
 import TimePiggyBankFactory from "../../../contracts/piggy_banks_factory/TimePiggyBankFactory";
 import Loader from "../../../components/Loader";
+import AmmoutForm from "../../../components/create_forms/AmmoutForm";
+import Head from "next/head";
+import ParentForm from "../../../components/create_forms/ParentForm";
 
 const NewPiggyBankPage = () => {
-  useEffect(() => {
-    document.title = "CreatePiggyBank";
-  });
   const router = useRouter();
   const ownerRef = useRef();
   const descRef = useRef();
@@ -23,15 +23,11 @@ const NewPiggyBankPage = () => {
   const { contextState, updateContextState } = useAppContext();
   const currentAccount = contextState?.currentAccount;
   // добавил amountRef, piggyBankType, dateEnd
-  const amountRef = useRef();
-  const [piggyBankType, setPiggyBankType] = useState("amount");
+
   // выбор даты
   const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState();
   const [loader, setLoader] = useState(false);
-
-
-
 
   const handleCreateSubmit = async (event) => {
     event.preventDefault();
@@ -178,12 +174,17 @@ const NewPiggyBankPage = () => {
     setLoader(false);
   };
 
-  const handleConnectMetamaskClick = async () => {
-    connectMetamask(updateContextState);
-  };
 
-  console.log("Change PiggyBank Type:", piggyBankType);
-  console.log("Date End:", Date.parse(startDate) / 1000);
+
+  return (
+    <Layout>
+      <Head>
+        <title>Create Piggy Bank</title>
+      </Head>
+      <h1 className="ml-36 mt-6 mb-6 text-4xl">Create your piggy bank!</h1>
+      <ParentForm />
+    </Layout>
+  );
 
   return (
     <Layout>
