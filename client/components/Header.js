@@ -66,17 +66,17 @@ const Header = () => {
       </div>
 
       {isMenuVisible && (
-        <div className="absolute right-28 top-24 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+        <div className="absolute right-28 top-24 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
           <div className="py-1">
             <button
-              className="w-full text-pink-700 block px-4 py-2 text-xl hover:bg-pink-300" role="menuitem" tabindex="-1" id="menu-item-0"
+              className="w-full text-pink-700 block px-4 py-2 text-xl hover:bg-pink-300" role="menuitem" tabIndex="-1" id="menu-item-0"
               onClick={handleFindAddressClick}
             >
               My Piggy Banks
             </button>
 
             <button
-              className="w-full text-pink-700 block px-4 py-2 text-xl hover:bg-pink-300" role="menuitem" tabindex="-1" id="menu-item-1"
+              className="w-full text-pink-700 block px-4 py-2 text-xl hover:bg-pink-300" role="menuitem" tabIndex="-1" id="menu-item-1"
               onClick={handleDisconnectMetamaskClick}
             >
               Log out
