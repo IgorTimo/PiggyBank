@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import PiggyBankWithSigner from "../contracts/prggy_bank/PiggyBankWithSigner";
+import PiggyBankWithSigner from "../contracts/piggy_bank/PiggyBankWithSigner";
 import { useAppContext } from "../hooks/useAppContext";
 import connectMetamask from "../utils/connectMetamask";
 import getErrorMessage from "../utils/getErrorMessage";

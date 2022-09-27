@@ -5,8 +5,8 @@ import OwnerPiggyBanks from "../../components/OwnerPiggyBanks";
 import PiggyBankView from "../../components/PiggyBankView";
 import getPiggyBankParentInfo from "../../utils/getPiggyBankParentInfo";
 import { useEffect } from "react";
-import piggyBankMaster from "../../contracts/piggy_banks_factory/Master";
 import getPiggyBankTypeByAddressAndOwner from "../../utils/getPiggyBankTypeByAddressAndOwner";
+import piggyBankMaster from "../../contracts/piggyBankMaster";
 
 const PiggyBanksPage = (props) => {
   useEffect(() => {

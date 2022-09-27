@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import defaultProvider from "../contracts/defaultProvider";
-import PiggyBank from "../contracts/prggy_bank/PiggyBank";
+import PiggyBank from "../contracts/piggy_bank/PiggyBank";
 
 
 const getPiggyBankParentInfo = async (address) => {

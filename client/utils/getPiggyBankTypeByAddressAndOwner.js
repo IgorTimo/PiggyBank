@@ -1,4 +1,4 @@
-import piggyBankMaster from "../contracts/piggy_banks_factory/Master";
+import piggyBankMaster from "../contracts/piggyBankMaster";
 
 const getPiggyBankTypeByAddressAndOwner = async (address, owner) => {
   const arrayOfAddresses = await piggyBankMaster.getPiggyBanksByOwner(owner);
