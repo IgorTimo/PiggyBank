@@ -1,4 +1,6 @@
-const FormTypesSelect = ({ data, piggyBankType, setPiggyBankType }) => {
+import data from "../../data/data";
+
+const FormTypesSelect = ({ piggyBankType, setPiggyBankType }) => {
   const renderOptions = Object.entries(data).map((entry) => (
     <option value={entry[0]} key={entry[0]}>
       {entry[1].title}

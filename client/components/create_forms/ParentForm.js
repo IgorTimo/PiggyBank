@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-import formsData from "../../data/formsData";
+import data from "../../data/data";
 import { useAppContext } from "../../hooks/useAppContext";
 import connectMetamask from "../../utils/connectMetamask";
 import getErrorMessage from "../../utils/getErrorMessage";
@@ -33,7 +33,7 @@ const ParentForm = () => {
     }
     setPending(true);
     try {
-      await formsData[piggyBankType].createFunc(
+      await data[piggyBankType].createFunc(
         ownerRef.current.value,
         descRef.current.value,
         additionalInfo
@@ -65,12 +65,11 @@ const ParentForm = () => {
     >
       <ParentInputs ownerRef={ownerRef} descRef={descRef} />
       <FormTypesSelect
-        data={formsData}
         piggyBankType={piggyBankType}
         setPiggyBankType={setPiggyBankType}
       />
 
-      {formsData[piggyBankType].form({additionalInfo, setAdditionalInfo})}
+      {data[piggyBankType].form({additionalInfo, setAdditionalInfo})}
       <br />
       {!currentAccount ? (
         <div className="flex justify-center">
