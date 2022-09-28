@@ -1,5 +1,4 @@
 import Layout from "../../../components/Layout";
-
 import Head from "next/head";
 import ParentForm from "../../../components/create_forms/ParentForm";
 
