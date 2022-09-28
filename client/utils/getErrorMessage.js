@@ -11,7 +11,7 @@ const getErrorMessage = (error) => {
     return "Transaction was Rejected";
   }
 
-  return error.message;
+  return error.message || error.code;
 };
 
 export default getErrorMessage;

@@ -46,6 +46,6 @@ const abi = [
   },
 ];
 
-const TimePiggyBankFactory = new ethers.Contract(address, abi, defaultProvider);
+const timePiggyBankFactory = new ethers.Contract(address, abi, defaultProvider);
 
-export default TimePiggyBankFactory;
+export default timePiggyBankFactory;

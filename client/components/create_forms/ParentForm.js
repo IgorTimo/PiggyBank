@@ -33,7 +33,7 @@ const ParentForm = () => {
     }
     setPending(true);
     try {
-      await formsData[piggyBankType].func(
+      await formsData[piggyBankType].createFunc(
         ownerRef.current.value,
         descRef.current.value,
         additionalInfo
@@ -70,7 +70,7 @@ const ParentForm = () => {
         setPiggyBankType={setPiggyBankType}
       />
 
-      {formsData[piggyBankType].view({additionalInfo, setAdditionalInfo})}
+      {formsData[piggyBankType].form({additionalInfo, setAdditionalInfo})}
       <br />
       {!currentAccount ? (
         <div className="flex justify-center">

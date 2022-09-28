@@ -46,10 +46,10 @@ const abi = [
   },
 ];
 
-const AmountPiggyBankFactory = new ethers.Contract(
+const amountPiggyBankFactory = new ethers.Contract(
   address,
   abi,
   defaultProvider
 );
 
-export default AmountPiggyBankFactory;
+export default amountPiggyBankFactory;

@@ -1,21 +1,26 @@
 import AmmoutForm from "../components/create_forms/AmmoutForm";
-import createAmmountPiggyBank from "../utils/createAmmountPiggyBank";
+import ApproveForm from "../components/create_forms/ApproveForm";
+import TimeForm from "../components/create_forms/TimeForm";
+import createAmountPiggyBank from "../utils/createAmountPiggyBank";
+import createApprovePiggyBank from "../utils/createApprovePiggyBank";
+
+import createTimePiggyBank from "../utils/createTimePiggyBank";
 
 const formsData = {
     amount: {
       title: "Amount Piggy Bank",
-      view: AmmoutForm,
-      func: createAmmountPiggyBank,
+      form: AmmoutForm,
+      createFunc: createAmountPiggyBank,
     },
     time: {
       title: "Time Piggy Bank",
-      view: AmmoutForm,
-      func: createAmmountPiggyBank,
+      form: TimeForm,
+      createFunc: createTimePiggyBank,
     },
     approve: {
       title: "Approve Piggy Bank",
-      view: AmmoutForm,
-      func: createAmmountPiggyBank,
+      form: ApproveForm,
+      createFunc: createApprovePiggyBank,
     },
   };
 
