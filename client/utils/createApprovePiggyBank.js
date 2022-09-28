@@ -1,5 +1,5 @@
 import ContractWithSinger from "../contracts/ContractWithSigner";
-import approvePiggyBankFactory from "../contracts/piggy_banks_factory/ApprovePiggyBankFactory";
+import approvePiggyBankFactory from "../contracts/piggy_banks_factory/approvePiggyBankFactory";
 
 const createApprovePiggyBank = async (owner, desc, additionalInfo) => {
   if (!additionalInfo.approver) {
