@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import defaultProvider from "../defaultProvider";
+import defaultProvider from "./defaultProvider";
 
 const address = "0x54ccb3ED9d2eeAC98D6a616a2CEC1487E5f1c4fc";
 
@@ -73,7 +73,7 @@ const abi = [
       }
 ];
 
-//const Master = new ethers.Contract(address, abi, defaultProvider);
+
 
 const piggyBankMaster = new ethers.Contract(address, abi, defaultProvider);
 

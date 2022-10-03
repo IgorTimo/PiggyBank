@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import defaultProvider from "../defaultProvider";
 
-const address = "0x0400956139F955C93DCF45982bF4175510FB19C2";
+const address = "0x6D93779765D0232BEAE02C61E6D53017DEB5BB88";
 
 const abi = [
   {
@@ -28,12 +28,12 @@ const abi = [
         type: "string",
       },
       {
-        internalType: "uint256",
-        name: "_targetAmount",
-        type: "uint256",
+        internalType: "uint64",
+        name: "_endTime",
+        type: "uint64",
       },
     ],
-    name: "createAmountPiggyBank",
+    name: "createTimePiggyBank",
     outputs: [
       {
         internalType: "address",
@@ -46,10 +46,6 @@ const abi = [
   },
 ];
 
-const AmountPiggyBankFactory = new ethers.Contract(
-  address,
-  abi,
-  defaultProvider
-);
+const timePiggyBankFactory = new ethers.Contract(address, abi, defaultProvider);
 
-export default AmountPiggyBankFactory;
+export default timePiggyBankFactory;

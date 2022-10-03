@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { useEffect } from "react";
 import FindPiggyBankForm from "../components/FindPiggyBankForm";
 import FindUsersPiggyBanksForm from "../components/FindUsersPiggyBanksForm";
 import Layout from "../components/Layout";
+import Head from "next/head";
 
 const Index = () => {
-  useEffect(() => {
-    document.title = "Home";
-  });
   return (
     <Layout>
+      <Head>
+        <title>Piggy Bank</title>
+      </Head>
 
       <FindPiggyBankForm />
       <FindUsersPiggyBanksForm />
       <Link href="/piggy_banks/new">
-      <a className="grid justify-center text-center rounded-xl border bg-pink-100 border-pink-300 py-1 px-4 text-2xl hover:bg-pink-300 mt-16">
-        Or create your own piggy bank!
-      </a>
+        <a className="mt-16 grid justify-center rounded-xl border border-pink-300 bg-pink-100 py-1 px-4 text-center text-2xl hover:bg-pink-300">
+          Or create your own piggy bank!
+        </a>
       </Link>
     </Layout>
   );
