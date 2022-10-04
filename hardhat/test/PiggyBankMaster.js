@@ -118,4 +118,39 @@ describe("PiggyBankMaster", function () {
       expect(await piggyBankMaster.getPiggyBanksByOwner(owner.address)).to.be.empty;
     });
   });
+
+  describe("Resolving Piggy Bank Type", function () {
+    it("Should resolve Piggy Bank Type by Piggy Bank address", async function () {
+      const { piggyBankMaster, owner } = await loadFixture(deployPiggyBankMasterFixture);
+      
+      const AmountPiggyBankFactory = await ethers.getContractFactory("AmountPiggyBankFactory");
+      const amountPiggyBankFactory = await AmountPiggyBankFactory.deploy(piggyBankMaster.address);
+
+      const expectedPiggyBankType = "Approve";
+
+      const registrationTx = await piggyBankMaster.registerPiggyBankFactory(expectedPiggyBankType, amountPiggyBankFactory.address);
+      await registrationTx.wait();
+
+      const description = "Amount Piggy Bank (1)";
+      const targetAmount = 42;
+
+      const amountPiggyBankAddress = await amountPiggyBankFactory.callStatic.createAmountPiggyBank(
+        owner.address,
+        description,
+        targetAmount);
+
+      const creationTx = await amountPiggyBankFactory.createAmountPiggyBank(
+        owner.address,
+        description,
+        targetAmount);
+
+      await creationTx.wait(); 
+
+      const actualPiggyBankType = await piggyBankMaster.callStatic.getPiggyBankType(
+        amountPiggyBankAddress
+      );
+
+      expect(actualPiggyBankType).to.be.eq(expectedPiggyBankType);
+    });
+  });
 });
