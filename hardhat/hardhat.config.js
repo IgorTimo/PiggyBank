@@ -15,7 +15,7 @@ module.exports = {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
     apiKey: {
-      rinkeby: "{API_KEY}"
+      rinkeby: "G32J1UPYT6UR59JUXYFD84353IF5XB16YT"
     },
     customChains: [
       {

@@ -3,17 +3,22 @@ import FindUsersPiggyBanksForm from "../../components/FindUsersPiggyBanksForm";
 import Layout from "../../components/Layout";
 import OwnerPiggyBanks from "../../components/OwnerPiggyBanks";
 import PiggyBankView from "../../components/PiggyBankView";
-import piggyBankFactory from "../../contracts/piggy_banks_factory/piggyBankFactory";
-import getPiggyBankInfo from "../../utils/getPiggyBankInfo";
+import getPiggyBankParentInfo from "../../utils/getPiggyBankParentInfo";
 import { useEffect } from "react";
+import getPiggyBankTypeByAddressAndOwner from "../../utils/getPiggyBankTypeByAddressAndOwner";
+import piggyBankMaster from "../../contracts/piggyBankMaster";
 
 const PiggyBanksPage = (props) => {
   useEffect(() => {
     document.title = "PiggyBank";
   });
-  if (props.arrayOfAddresses) {
-    if (props.arrayOfAddresses.length > 0) {
-      return <OwnerPiggyBanks arrayOfAddresses={props.arrayOfAddresses} />;
+  if (props.arrayOfAddressesAndTypes) {
+    if (props.arrayOfAddressesAndTypes.length > 0) {
+      return (
+        <OwnerPiggyBanks
+          arrayOfAddressesAndTypes={props.arrayOfAddressesAndTypes}
+        />
+      );
     } else {
       return (
         <Layout>
@@ -27,7 +32,7 @@ const PiggyBanksPage = (props) => {
     <Layout>
       <div className="mt-12 ">
         {props.address && (
-          <h1 className="flex justify-center text-center text-red-800 border bg-red-300 border-red-300 py-1 px-4 text-2xl hover:bg-red-500 mt-16">
+          <h1 className="mt-16 flex justify-center border border-red-300 bg-red-300 py-1 px-4 text-center text-2xl text-red-800 hover:bg-red-500">
             {props.address} is not correct or empty! Try again with another
             address
           </h1>
@@ -48,12 +53,24 @@ const PiggyBanksPage = (props) => {
 export default PiggyBanksPage;
 
 export async function getServerSideProps(props) {
-  const address = props.query.address;
-  const user = props.query.user;
+  const { user, address, type } = props.query;
+
   if (address) {
     try {
-      const response = await getPiggyBankInfo(address);
-      return { props: { piggyBankInfo: response } };
+      const response = await getPiggyBankParentInfo(address);
+      return {
+        props: {
+          piggyBankInfo: {
+            ...response,
+            type:
+              type ||
+              (await getPiggyBankTypeByAddressAndOwner(
+                address,
+                response.owner
+              )),
+          },
+        },
+      };
     } catch (error) {
       console.error(error);
       return {
@@ -64,15 +81,10 @@ export async function getServerSideProps(props) {
 
   if (user) {
     try {
-      const arrayOfAddresses = await piggyBankFactory.getPiggyBanksByAddress(
-        user
-      );
-      return { props: { arrayOfAddresses: arrayOfAddresses } };
+      const response = await piggyBankMaster.getPiggyBanksByOwner(user);
+      return { props: { arrayOfAddressesAndTypes: response } };
     } catch (error) {
       console.error(error);
-      return {
-        props: { address: user },
-      };
     }
   }
 

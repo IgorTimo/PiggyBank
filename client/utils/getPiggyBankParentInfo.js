@@ -1,9 +1,9 @@
 import { ethers } from "ethers";
 import defaultProvider from "../contracts/defaultProvider";
-import PiggyBank from "../contracts/prggy_bank/PiggyBank";
+import PiggyBank from "../contracts/piggy_bank/PiggyBank";
 
 
-const getPiggyBankInfo = async (address) => {
+const getPiggyBankParentInfo = async (address) => {
   const piggyBank = PiggyBank(address);
   const owner = await piggyBank.owner();
   const isOver = await piggyBank.isOver();
@@ -14,4 +14,4 @@ const getPiggyBankInfo = async (address) => {
   return { address, owner, isOver, desc, isWithdrawAvailable, balance }
 };
 
-export default getPiggyBankInfo;
+export default getPiggyBankParentInfo;

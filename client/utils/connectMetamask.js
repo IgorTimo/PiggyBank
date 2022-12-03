@@ -1,5 +1,3 @@
-import { RINKEBY_ID } from "../contracts/constants/constants";
-
 const connectMetamask = async (updateFunc) => {
   const { ethereum } = window;
   try {
@@ -7,12 +5,12 @@ const connectMetamask = async (updateFunc) => {
       method: "eth_requestAccounts",
     });
     const chainId = await ethereum.request({
-      method: "eth_chainId"
+      method: "eth_chainId",
     });
-    if (chainId != RINKEBY_ID) {
+    if (chainId != process.env.targetChainId) {
       await ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: RINKEBY_ID }],
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: process.env.targetChainId }],
       });
     }
     updateFunc({ currentAccount: accounts[0] });
@@ -23,5 +21,3 @@ const connectMetamask = async (updateFunc) => {
 };
 
 export default connectMetamask;
-
-
